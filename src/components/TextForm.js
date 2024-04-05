@@ -31,10 +31,9 @@ export default function TextForm(props) {
     synth.speak(utterance);
   };
   const handleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
-    props.showAlert("Text xopy to Clipboard","success")
+    //document.getSelection().removeAllRanges();
+    navigator.clipboard.writeText(text);
+    props.showAlert("Text copy to Clipboard","success")
 
   };
   const handleExtraSpaces = () => {
@@ -56,43 +55,44 @@ export default function TextForm(props) {
           <textarea
             className="form-control"
             value={text}
-            style={{backgroundColor: props.mode==='dark'?'grey' : 'white',color: props.mode==='dark'?'white' : 'black'}}
+            style={{backgroundColor: props.mode==='dark'?'#13466e' : 'white',color: props.mode==='dark'?'white' : 'black'}}
             onChange={handleOnChange}
             id="myBox"
             rows="10 "
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2 " onClick={handleUpClick}  style={{ color: props.btnMode }}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 " onClick={handleUpClick}  style={{ color: props.btnMode }}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-success mx-2 my-1" onClick={handleLoClick}  style={{ color: props.btnMode }}>
+        <button disabled={text.length===0} className="btn btn-success mx-2 my-1" onClick={handleLoClick}  style={{ color: props.btnMode }}>
           Convert to Lowercase
         </button>
-        <button className="btn btn-info mx-2 text-light" onClick={handleExtraSpaces}>
+        <button disabled={text.length===0} className="btn btn-info mx-2 text-light" onClick={handleExtraSpaces}>
           Remove ExtraSpaces
         </button>
         <button
-          className="btn btn-danger mx-1 my-1 "
+          disabled={text.length===0} className="btn btn-danger mx-1 my-1 "
           onClick={handleClearClick}
         >
           <i className="fas fa-trash"></i>
         </button>
-        <button className="btn btn-dark mx-1 my-1 " onClick={handleCopy}>
+        <button disabled={text.length===0} className="btn btn-dark mx-1 my-1 " onClick={handleCopy}>
           {" "}
           <i className="fas fa-copy"></i>
         </button>
-        <button onClick={handleSpeak} className="btn btn-dark mx-1 my-1 ">
+        <button disabled={text.length===0} onClick={handleSpeak} className="btn btn-dark mx-1 my-1 ">
           <i className="fas fa-volume-up"></i>
         </button>
       </div>
       <div className="container" style={{color: props.mode==='dark'?'white' : 'black'}}>
         <h2>your text summary</h2>
         <p>
-          {text.split(" ").length} words and {text.length} characters
+          {text.split(/\s+/).filter((element) => {return element.length !== 0}).length} words and {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} Minutes read</p>
+
+        <p>{0.008 * text.split(" ").filter((element) => {return element.length !== 0}).length} Minutes read</p>
         <h3>Preview</h3>
-        <p>{text.length>0?text:'Enter Something in the textbox above to preview it here.'}</p>
+        <p>{text.length>0?text:'Nothing to preview!'}</p>
       </div>
     </>
   );
