@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
   return (
-    <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode} `}>
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode} `}
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           {props.title}
@@ -23,7 +25,7 @@ export default function Navbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link className="nav-link " aria-current="page" to="/">
                 Home
               </Link>
             </li>
@@ -33,22 +35,67 @@ export default function Navbar(props) {
               </Link>
             </li>
           </ul>
-                    <button type="button" className="btn btn-outline-primary mx-1" onClick={() => props.btnMode("blue")}>Blue</button>
-                    <button type="button" className="btn btn-outline-secondary mx-1" onClick={() => props.btnMode("grey")}>Grey</button>
-                    <button type="button" className="btn btn-outline-success mx-1" onClick={() => props.btnMode("green")}>Green</button>
-                    <button type="button" className="btn btn-outline-danger mx-1" onClick={() => props.btnMode("red")}>Red</button>
-                    <button type="button" className="btn btn-outline-info mx-2"onClick={() => props.btnMode("skyblue")}>SkyBlue</button>
+          <button
+            type="button"
+            className="btn btn-primary rounded mx-1"
+            onClick={() => props.btnMode("blue")} style={{height:'20px',width:'20px'}}
+          >
+            
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary rounded mx-1"
+            onClick={() => {props.toggleMode("secondary")}}style={{height:'20px',width:'20px'}}
+          >
+            
+          </button>
+          <button
+            type="button"
+            className="btn btn-success rounded mx-1"
+            onClick={() => props.btnMode("green")}style={{height:'20px',width:'20px'}}
+          >
+            
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger rounded mx-1"
+            onClick={() => props.btnMode("red")}style={{height:'20px',width:'20px'}}
+          >
+           
+          </button>
+          <button
+            type="button"
+            className="btn btn-info rounded mx-2"
+            onClick={() => props.btnMode("skyblue")}style={{height:'20px',width:'20px', cursor : 'pointer'}}
+          >
+            
+          </button>
 
-                    <div className={`form-check form-switch text-${props.mode==='light'?'dark' : 'light'}`}>
-                            <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
-                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark mode</label>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    );
+          <div
+            className={`form-check form-switch text-${
+              props.mode === "light" ? "dark" : "light"
+            }`}
+          >
+            <input
+              className="form-check-input"
+              onClick={() => {props.toggleMode(null)}}
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckDefault"
+            >
+              Enable Dark mode
+            </label>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
 Navbar.propTypes = { title: PropTypes.string, about: PropTypes.string };
 
-Navbar.defaultProps = { title: 'Start text here' , about: 'About'}
+Navbar.defaultProps = { title: "Start text here", about: "About" };
